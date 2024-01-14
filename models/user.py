@@ -1,6 +1,7 @@
 # models/user.py
 
 from models.base_model import BaseModel
+import models
 
 class User(BaseModel):
     """User class that inherits from BaseModel."""
