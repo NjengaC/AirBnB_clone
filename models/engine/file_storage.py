@@ -2,7 +2,7 @@
 import json
 import uuid
 from datetime import datetime
-#from ..base_model import BaseModel
+#from models.base_model import BaseModel
 
 
 class FileStorage:
@@ -42,3 +42,11 @@ class FileStorage:
                     FileStorage.__objects[key] = obj_instance
         except FileNotFoundError:
             pass
+
+        def classes(self):
+            """
+            Return a dictionary containing class names as keys and classes as values.
+            """
+            return {
+                'BaseModel': BaseModel,  # Add other classes if needed
+            }
