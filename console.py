@@ -167,6 +167,14 @@ class HBNBCommand(cmd.Cmd):
         obj = storage.all()[key]
         setattr(obj, attribute_name, attribute_value)
         storage.save()
+    def classes(self):
+        """
+        Return a dictionary containing class names as keys and classes as values.
+        """
+        return {
+            'BaseModel': BaseModel,
+            'User': User,
+            }
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

@@ -3,7 +3,7 @@ import json
 import uuid
 from datetime import datetime
 #from models.base_model import BaseModel
-
+from models.user import User
 
 class FileStorage:
     __file_path = "file.json"
@@ -35,6 +35,8 @@ class FileStorage:
                     class_name, obj_id = key.split('.')
                     if class_name == 'BaseModel':
                         class_obj = BaseModel
+                    elif class_name == 'User':
+                        class_obj = User
                     else:
                         pass
 
