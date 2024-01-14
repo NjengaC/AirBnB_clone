@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-from models import storage
+import models
 import uuid
 from datetime import datetime
 """
