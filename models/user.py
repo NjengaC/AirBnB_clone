@@ -10,3 +10,6 @@ class User(BaseModel):
     first_name = ""
     last_name = ""
 
+def __init__(self, *args, **kwargs):
+    super().__init__(*args, **kwargs)
+    storage.new(self)
