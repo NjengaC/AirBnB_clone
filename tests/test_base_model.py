@@ -1,6 +1,7 @@
 import unittest
 from base_model import BaseModel
 
+
 class TestBaseModel(unittest.TestCase):
     def test_attributes(self):
         obj = BaseModel()
@@ -44,6 +45,6 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(new_obj.created_at, obj.created_at)
         self.assertEqual(new_obj.updated_at, obj.updated_at)
 
+
 if __name__ == '__main__':
     unittest.main()
-
