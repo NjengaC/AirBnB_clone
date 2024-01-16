@@ -9,7 +9,7 @@ class BaseModel(BaseModel):
     """Doc
     """
 
-    def save(self):
+    def __init__(self, *args, **kwargs):
         """Doc
         """
-        pass
+        self.created_at = "Fake"
