@@ -54,7 +54,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_show(self, arg):
         """
-        Prints the string representation of an instance based on the class name and id.
+        Prints the string repr of an instance based on the class name and id.
         Usage: show <class name> <id>
         """
         args = arg.split()
@@ -119,18 +119,19 @@ class HBNBCommand(cmd.Cmd):
         if not args:
             print([str(obj) for obj in instances.values()])
             return
-        
+
         class_name = args[0]
         classes_dict = {'BaseModel': BaseModel}
         if class_name not in classes_dict:
             print("** class doesn't exist **")
             return
 
-        print([str(obj) for key, obj in instances.items() if key.startswith(class_name)])
+        print([str(obj) for key, obj in
+              instances.items() if key.startswith(class_name)])
 
     def do_update(self, arg):
         """
-        Updates instance based on class name and id by adding or updating attribute
+        Updates instance based on class name and id by adding or updating attr
         Usage: update <class name> <id> <attribute name> "<attribute value>"
         """
         args = arg.split()
@@ -165,22 +166,23 @@ class HBNBCommand(cmd.Cmd):
         attribute_value_str = args[3]
         try:
             attribute_value = eval(attribute_value_str)
-        except:
+        except Exception:
             print("** value missing **")
             return
 
         obj = storage.all()[key]
         setattr(obj, attribute_name, attribute_value)
         storage.save()
+
     def classes(self):
         """
-        Return a dictionary containing class names as keys and classes as values.
+        Return a dict containing class names as keys and classes as values.
         """
         return {
             'BaseModel': BaseModel,
             'User': User,
             }
 
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-

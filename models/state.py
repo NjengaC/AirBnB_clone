@@ -1,12 +1,13 @@
 # models/state.py
 from models.base_model import BaseModel
 
+
 class State(BaseModel):
     """State class that inherits from BaseModel."""
     name = ""
 
 # models/city.py
-from models.base_model import BaseModel
+
 
 class City(BaseModel):
     """City class that inherits from BaseModel."""
@@ -14,14 +15,14 @@ class City(BaseModel):
     name = ""
 
 # models/amenity.py
-from models.base_model import BaseModel
+
 
 class Amenity(BaseModel):
     """Amenity class that inherits from BaseModel."""
     name = ""
 
 # models/place.py
-from models.base_model import BaseModel
+
 
 class Place(BaseModel):
     """Place class that inherits from BaseModel."""
@@ -38,11 +39,10 @@ class Place(BaseModel):
     amenity_ids = []
 
 # models/review.py
-from models.base_model import BaseModel
+
 
 class Review(BaseModel):
     """Review class that inherits from BaseModel."""
     place_id = ""
     user_id = ""
     text = ""
-

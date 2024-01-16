@@ -2,8 +2,8 @@
 import json
 import uuid
 from datetime import datetime
-#from models.base_model import BaseModel
 from models.user import User
+
 
 class FileStorage:
     __file_path = "file.json"
@@ -30,7 +30,6 @@ class FileStorage:
                 data = json.load(file)
                 from models.base_model import BaseModel
 
-
                 for key, value in data.items():
                     class_name, obj_id = key.split('.')
                     if class_name == 'BaseModel':
@@ -47,7 +46,7 @@ class FileStorage:
 
         def classes(self):
             """
-            Return a dictionary containing class names as keys and classes as values.
+            Return a dict containing class names as keys and classes as values.
             """
             return {
                 'BaseModel': BaseModel,  # Add other classes if needed

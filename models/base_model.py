@@ -6,7 +6,6 @@ from datetime import datetime
 """
 Module initialises the baseodel with requirements as shown
 """
-#formats = "%Y-%m-%dT%H:%M:%S.%f"
 
 
 class BaseModel:
@@ -32,12 +31,13 @@ class BaseModel:
                 else:
                     setattr(self, key, value)
 
-
     def __str__(self):
         """
         String repr of BaseModel
         """
-        return "[{}] ({}) {}".format(self.__class__.__name__, self.id, self.__dict__)
+        return "[{}] ({}) {}".format(self.__class__.__name__,
+                                     self.id, self.__dict__)
+
     def save(self):
         """
          update the pub instance attr updated_at with the current datetime
