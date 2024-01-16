@@ -1,4 +1,15 @@
 #!/usr/bin/python3
+"""Doc
+"""
+from models.base_model import *
 from models.base_model import BaseModel
 
-bm = BaseModel()
+
+class BaseModel(BaseModel):
+    """Doc
+    """
+
+    def save(self):
+        """Doc
+        """
+        pass
