@@ -1,11 +1,18 @@
 #!/usr/bin/python3
+"""
+Class FileStorage
+"""
 import json
 import uuid
 from datetime import datetime
 from models.user import User
+from models.base_model import BaseModel
 
 
 class FileStorage:
+    """
+    class FileStorage
+    """
     __file_path = "file.json"
     __objects = {}
 
@@ -28,7 +35,6 @@ class FileStorage:
         try:
             with open(FileStorage.__file_path, 'r') as file:
                 data = json.load(file)
-                from models.base_model import BaseModel
 
                 for key, value in data.items():
                     class_name, obj_id = key.split('.')
