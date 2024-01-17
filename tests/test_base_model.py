@@ -84,7 +84,7 @@ class Test_BaseModel(unittest.TestCase):
             BaseModel(id=None, created_at=None, updated_at=None)
 
     def test_args_and_kwargs(self):
-        """ 
+        """
         test with both args and kwargs
         """
         date = datetime.now()

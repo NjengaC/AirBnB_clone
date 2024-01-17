@@ -177,5 +177,3 @@ class HBNBCommand(cmd.Cmd):
             'BaseModel': BaseModel,
             'User': User,
             }
-
-
