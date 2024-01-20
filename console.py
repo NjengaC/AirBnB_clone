@@ -4,13 +4,24 @@ This module contains the entry point of the command interpreter.
 """
 
 import cmd
+import sys
 import json
 from models.base_model import BaseModel
 from models import storage
-
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
+
+    classes_dict = {"BaseModel": BaseModel, "User": User,
+                  "Place": Place, "State": State,
+                  "City": City, "Amenity": Amenity,
+                  "Review": Review}
 
     def do_quit(self, arg):
         """
@@ -20,7 +31,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, arg):
         """
-       i EOF command to exit the program
+        EOF command to exit the program
         """
         print()
         return True
@@ -53,21 +64,20 @@ class HBNBCommand(cmd.Cmd):
         Usage: show <class name> <id>
         """
         args = arg.split()
-        if not args:
+        if not arg:
             print("** class name missing **")
             return
 
-            class_name = args[0]
-            classes_dict = {'BaseModel': BaseModel}
-            if class_name not in classes_dict:
-                print("** class doesn't exist **")
-                return
+        class_name = args[0]
+        if not class_name or class_name not in self.classes_dict:
+            print("** class doesn't exist **")
+            return
 
         if len(args) < 2:
             print("** instance id missing **")
             return
-
         instance_id = args[1]
+
         key = "{}.{}".format(class_name, instance_id)
         if key not in storage.all():
             print("** no instance found **")
@@ -86,7 +96,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         class_name = args[0]
-        if class_name not in storage.classes():
+        if not class_name or class_name not in self.classes_dict:
             print("** class doesn't exist **")
             return
 
@@ -116,8 +126,8 @@ class HBNBCommand(cmd.Cmd):
             return
 
         class_name = args[0]
-        classes_dict = {'BaseModel': BaseModel}
-        if class_name not in classes_dict:
+
+        if not class_name or class_name not in self.classes_dict:
             print("** class doesn't exist **")
             return
 
@@ -135,7 +145,7 @@ class HBNBCommand(cmd.Cmd):
             return
 
         class_name = args[0]
-        if class_name not in storage.classes():
+        if class_name not in self.classes_dict:
             print("** class doesn't exist **")
             return
 
@@ -177,7 +187,12 @@ class HBNBCommand(cmd.Cmd):
             'BaseModel': BaseModel,
             'User': User,
             }
-
+    def preloop(self):
+        """
+        Prints the prompt only if isatty is false
+        """
+        if not sys.__stdin__.isatty():
+            print("(hbnb)")
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
