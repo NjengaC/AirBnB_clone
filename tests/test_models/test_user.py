@@ -1,12 +1,7 @@
 #!/usr/bin/python3
 """Unit tests for user class"""
-
-import unittest
-import models
+from tests.test_models.test_base_model import test_basemodel
 from models.user import User
-from datetime import datetime
-from time import sleep
-import os
 
 
 class Test_User(unittest.TestCase):
