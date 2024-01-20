@@ -42,6 +42,22 @@ class HBNBCommand(cmd.Cmd):
                 print(count)
             else:
                 print("** class doesn't exist **")
+        elif line.endswith(".show()"):
+            print("** instance id missing **")
+        elif ".show(" in line and line.endswith(")"):
+            parts = line.split(".show(")
+            class_name = parts[0].strip()
+            instance_id = parts[1].strip().strip("\"')")
+
+            if class_name in self.classes_dict:
+                key = "{}.{}".format(class_name, instance_id)
+                instances = storage.all()
+                if key in instances:
+                    print(instances[key])
+                else:
+                    print("** no instance found **")
+            else:
+                print("** class doesn't exist **")
         else:
             print(f"Unknown syntax: {line}")
 
