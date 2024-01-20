@@ -23,6 +23,20 @@ class HBNBCommand(cmd.Cmd):
                   "City": City, "Amenity": Amenity,
                   "Review": Review}
 
+    def default(self, line):
+        """
+        Default behavior for unrecognized commands. Handle <class name>.all()
+        """
+        if line.endswith(".all()"):
+            class_name = line.split(".")[0]
+            if class_name in self.classes_dict:
+                print([str(obj) for obj in storage.all().values()
+                      if isinstance(obj, self.classes_dict[class_name])])
+            else:
+                print("** class doesn't exist **")
+        else:
+            print(f"Unknown syntax: {line}")
+
     def do_quit(self, arg):
         """
         Quit command to exit the program
@@ -127,12 +141,21 @@ class HBNBCommand(cmd.Cmd):
 
         class_name = args[0]
 
-        if not class_name or class_name not in self.classes_dict:
-            print("** class doesn't exist **")
+        if class_name not in self.classes_dict:
+            if '.' in class_name and class_name.split('.')[1] == 'all()':
+                class_name = class_name.split('.')[0]
+                if class_name in classes_dict:
+                    print([str(obj) for obj in models.storage.all().values()
+                          if isinstance(obj, classes_dict[class_name])])
+                else:
+                    print("** class doesn't exist **")
+            else:
+                print("** class doesn't exist **")
             return
 
         print([str(obj) for key, obj in
               instances.items() if key.startswith(class_name)])
+
 
     def do_update(self, arg):
         """
@@ -178,15 +201,7 @@ class HBNBCommand(cmd.Cmd):
         obj = storage.all()[key]
         setattr(obj, attribute_name, attribute_value)
         storage.save()
-
-    def classes(self):
-        """
-        Return a dict containing class names as keys and classes as values.
-        """
-        return {
-            'BaseModel': BaseModel,
-            'User': User,
-            }
+        
     def preloop(self):
         """
         Prints the prompt only if isatty is false

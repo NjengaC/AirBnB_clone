@@ -1,0 +1,13 @@
+def default(self, line):
+"""
+Default behavior for unrecognized commands. Handle <class name>.all() syntax.
+"""
+if line.endswith(".all()"):
+class_name = line.split(".")[0]
+classes_dict = {'BaseModel': BaseModel, 'User': User}  # Add other classes as needed
+if class_name in classes_dict:
+print([str(obj) for obj in models.storage.all().values() if isinstance(obj, classes_dict[class_name])])
+else:
+print("** class doesn't exist **")
+else:
+print(f"*** Unknown syntax: {line}")

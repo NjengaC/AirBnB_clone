@@ -6,6 +6,7 @@ import json
 import uuid
 from datetime import datetime
 from models.user import User
+from models.amenity import Amenity
 from models.base_model import BaseModel
 
 
@@ -42,6 +43,16 @@ class FileStorage:
                         class_obj = BaseModel
                     elif class_name == 'User':
                         class_obj = User
+                    elif class_name == 'Place':
+                        class_obj = Place
+                    elif class_name == 'State':
+                        class_obj = State
+                    elif class_name == 'Review':
+                        class_obj = Review
+                    elif class_name == 'Amenity':
+                        class_obj = Amenity
+                    elif class_name == 'City':
+                        class_obj = City
                     else:
                         pass
 
@@ -49,11 +60,3 @@ class FileStorage:
                     FileStorage.__objects[key] = obj_instance
         except FileNotFoundError:
             pass
-
-        def classes(self):
-            """
-            Return a dict containing class names as keys and classes as values.
-            """
-            return {
-                'BaseModel': BaseModel,  # Add other classes if needed
-            }
