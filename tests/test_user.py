@@ -238,10 +238,25 @@ class Test_User(unittest.TestCase):
         self.assertEqual(user.password, "new_password")
         self.assertEqual(user.first_name, "New")
         self.assertEqual(user.last_name, "User")
-    
+   def test_first_name(self):
+       """ """
+       new = self.value()
+       self.assertEqual(type(new.first_name), str)
+
     def test_last_name(self):
-        user = User()
-        self.assertIsNone(user.last_name)
+       """ """
+       new = self.value()
+       self.assertEqual(type(new.last_name), str)
+
+    def test_email(self):
+        """ """
+        new = self.value()
+        self.assertEqual(type(new.email), str)
+
+    def test_password(self):
+        """ """
+        new = self.value()
+        self.assertEqual(type(new.password), str)
 
 
 if __name__ == "__main__":
