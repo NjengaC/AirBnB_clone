@@ -7,10 +7,20 @@ import cmd
 import json
 from models.base_model import BaseModel
 from models import storage
-
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
+
+        class_list = {"BaseModel": BaseModel, "User": User,
+                      "Place": Place, "State": State,
+                      "City": City, "Amenity": Amenity,
+                      "Review": Review}
 
     def do_quit(self, arg):
         """
@@ -20,7 +30,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_EOF(self, arg):
         """
-       i EOF command to exit the program
+        EOF command to exit the program
         """
         print()
         return True
@@ -177,3 +187,9 @@ class HBNBCommand(cmd.Cmd):
             'BaseModel': BaseModel,
             'User': User,
             }
+    def preloop(self):
+        """
+        Prints the prompt only if isatty is false
+        """
+        if not sys.__stdin__.isatty():
+            print("(hbnb)")
