@@ -17,10 +17,10 @@ from models.review import Review
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
 
-        class_list = {"BaseModel": BaseModel, "User": User,
-                      "Place": Place, "State": State,
-                      "City": City, "Amenity": Amenity,
-                      "Review": Review}
+    class_list = {"BaseModel": BaseModel, "User": User,
+                  "Place": Place, "State": State,
+                  "City": City, "Amenity": Amenity,
+                  "Review": Review}
 
     def do_quit(self, arg):
         """
