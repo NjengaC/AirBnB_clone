@@ -213,6 +213,32 @@ class Test_User(unittest.TestCase):
         self.assertTrue('created_at' in user_dict)
         self.assertTrue('updated_at' in user_dict)
 
+    def test_default_values(self):
+        user = User()
+        self.assertEqual(user.email, "")
+        self.assertEqual(user.password, "")
+        self.assertEqual(user.first_name, "")
+        self.assertEqual(user.last_name, "")
+
+    def test_setting_attributes(self):
+        user = User(email="test@example.com",
+                    password="pass123", first_name="John", last_name="Doe")
+        self.assertEqual(user.email, "test@example.com")
+        self.assertEqual(user.password, "pass123")
+        self.assertEqual(user.first_name, "John")
+        self.assertEqual(user.last_name, "Doe")
+
+    def test_attributes_after_update(self):
+        user = User()
+        user.email = "new_email@example.com"
+        user.password = "new_password"
+        user.first_name = "New"
+        user.last_name = "User"
+        self.assertEqual(user.email, "new_email@example.com")
+        self.assertEqual(user.password, "new_password")
+        self.assertEqual(user.first_name, "New")
+        self.assertEqual(user.last_name, "User")
+
 
 if __name__ == "__main__":
     unittest.main()
