@@ -241,8 +241,7 @@ class Test_User(unittest.TestCase):
     
     def test_last_name(self):
         user = User()
-        user.last_name = None
-        self.assertEqual(user.last_name, None)
+        self.assertIsNone(user.last_name)
 
 
 if __name__ == "__main__":
