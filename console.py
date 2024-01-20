@@ -34,6 +34,14 @@ class HBNBCommand(cmd.Cmd):
                       if isinstance(obj, self.classes_dict[class_name])])
             else:
                 print("** class doesn't exist **")
+        elif line.endswith(".count()"):
+            class_name = line.split(".")[0]
+            if class_name in self.classes_dict:
+                count = sum(1 for obj in storage.all().values()
+                            if isinstance(obj, self.classes_dict[class_name]))
+                print(count)
+            else:
+                print("** class doesn't exist **")
         else:
             print(f"Unknown syntax: {line}")
 
