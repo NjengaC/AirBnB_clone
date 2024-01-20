@@ -2,8 +2,8 @@
 
 """Doc
 """
-from models.engine.file_storage import *
-from models.engine.file_storage import FileStorage
+from models.engine.tmp_file_storage import *
+from models.engine.tmp_file_storage import FileStorage
 
 
 class FileStorage(FileStorage):
