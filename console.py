@@ -42,7 +42,7 @@ class HBNBCommand(cmd.Cmd):
                 print(count)
             else:
                 print("** class doesn't exist **")
-        elif line.endswith(".show()"):
+        elif line.endswith(".show()") or line.endswith(".destroy()"):
             print("** instance id missing **")
         elif ".show(" in line and line.endswith(")"):
             parts = line.split(".show(")
@@ -54,6 +54,21 @@ class HBNBCommand(cmd.Cmd):
                 instances = storage.all()
                 if key in instances:
                     print(instances[key])
+                else:
+                    print("** no instance found **")
+            else:
+                print("** class doesn't exist **")
+        elif ".destroy(" in line and line.endswith(")"):
+            parts = line.split(".destroy(")
+            class_name = parts[0].strip()
+            instance_id = parts[1].strip().strip("\"')")
+
+            if class_name in self.classes_dict:
+                key = "{}.{}".format(class_name, instance_id)
+                instances = storage.all()
+                if key in instances:
+                    del instances[key]
+                    storage.save()
                 else:
                     print("** no instance found **")
             else:
