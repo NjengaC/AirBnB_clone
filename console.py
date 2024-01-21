@@ -88,13 +88,11 @@ class HBNBCommand(cmd.Cmd):
                 print("** attribute name missing **")
                 return
             dict_obj = {}
-            print(parts[1])
             instance_id = attribute_name_value[0].strip("\"'")
             if '{' in attribute_name_value[1]:
                 start = parts[1].find('{')
                 end = parts[1].find('}')+1
                 dict_str = parts[1][start:end]
-                print(dict_str)
                 try:
                     dict_obj = ast.literal_eval(dict_str)
                 except Exception:
