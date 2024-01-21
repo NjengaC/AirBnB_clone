@@ -81,18 +81,17 @@ class HBNBCommand(cmd.Cmd):
                 return
             class_name = parts[0].strip()
             attribute_name_value = parts[1].strip(")").split(", ")
-
-            instance_id = attribute_name_value[0].strip("\"'")
-            attribute_name = attribute_name_value[1].strip("\"'")
-            attribute_value_str = attribute_name_value[2].strip("\"'")
-            #print(instance_id, attribute_name, attribute_value_str)
-            #print(type(attribute_value_str))
             if len(attribute_name_value) == 2:
                 print("** value missing 1**")
                 return
             elif len(attribute_name_value) == 1:
-                print("** instance id missing **")
+                print("** attribute name missing **")
                 return
+            
+            instance_id = attribute_name_value[0].strip("\"'")
+            attribute_name = attribute_name_value[1].strip("\"'")
+            attribute_value_str = attribute_name_value[2].strip("\"'")
+
             if class_name in self.classes_dict:
                 key = "{}.{}".format(class_name, instance_id)
                 instances = storage.all()
@@ -106,13 +105,13 @@ class HBNBCommand(cmd.Cmd):
                                 print("** value missing **")
                             else:
                                 try:
-#                                    attribute_value = json.loads(attribute_value_str)
                                     setattr(obj, attribute_name, attribute_value_str)
                                     storage.save()
-                                except Exception as e:
-                                    print(e, "** value missing **")
+                                except Exception:
+                                    print("** value missing **")
                     else:
-                        print("** attribute name missing **")
+                        setattr(obj, attribute_name, attribute_value_str)
+                        storage.save()
                 else:
                     print("** no instance found **")
             else:
