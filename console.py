@@ -2,7 +2,7 @@
 """
 This module contains the entry point of the command interpreter.
 """
-
+import ast
 import cmd
 import sys
 import json
@@ -42,7 +42,8 @@ class HBNBCommand(cmd.Cmd):
                 print(count)
             else:
                 print("** class doesn't exist **")
-        elif line.endswith(".show()") or line.endswith(".destroy()"):
+        elif (line.endswith(".show()") or line.endswith(".destroy()") or
+              line.endswith(".update()")):
             print("** instance id missing **")
         elif ".show(" in line and line.endswith(")"):
             parts = line.split(".show(")
@@ -73,6 +74,50 @@ class HBNBCommand(cmd.Cmd):
                     print("** no instance found **")
             else:
                 print("** class doesn't exist **")
+        elif ".update(" in line and line.endswith(")"):
+            parts = line.split(".update(")
+            if len(parts) != 2:
+                print("** class name missing **")
+                return
+            class_name = parts[0].strip()
+            attribute_name_value = parts[1].strip(")").split(", ")
+
+            instance_id = attribute_name_value[0].strip("\"'")
+            attribute_name = attribute_name_value[1].strip("\"'")
+            attribute_value_str = attribute_name_value[2].strip("\"'")
+            #print(instance_id, attribute_name, attribute_value_str)
+            #print(type(attribute_value_str))
+            if len(attribute_name_value) == 2:
+                print("** value missing 1**")
+                return
+            elif len(attribute_name_value) == 1:
+                print("** instance id missing **")
+                return
+            if class_name in self.classes_dict:
+                key = "{}.{}".format(class_name, instance_id)
+                instances = storage.all()
+                if not instance_id:
+                    print("** instance id missing **")
+                elif key in instances:
+                    obj = instances[key]
+                    if hasattr(obj, attribute_name):
+                        if attribute_name not in ["id", "created_at", "updated_at"]:
+                            if not attribute_value_str:
+                                print("** value missing **")
+                            else:
+                                try:
+#                                    attribute_value = json.loads(attribute_value_str)
+                                    setattr(obj, attribute_name, attribute_value_str)
+                                    storage.save()
+                                except Exception as e:
+                                    print(e, "** value missing **")
+                    else:
+                        print("** attribute name missing **")
+                else:
+                    print("** no instance found **")
+            else:
+                print("** class doesn't exist **")
+
         else:
             print(f"Unknown syntax: {line}")
 

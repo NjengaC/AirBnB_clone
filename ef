@@ -1,13 +1,26 @@
-def default(self, line):
-"""
-Default behavior for unrecognized commands. Handle <class name>.all() syntax.
-"""
-if line.endswith(".all()"):
-class_name = line.split(".")[0]
-classes_dict = {'BaseModel': BaseModel, 'User': User}  # Add other classes as needed
-if class_name in classes_dict:
-print([str(obj) for obj in models.storage.all().values() if isinstance(obj, classes_dict[class_name])])
+if class_name in self.classes_dict:
+key = "{}.{}".format(class_name, instance_id)
+instances = storage.all()
+if not instance_id:
+print("** instance id missing **")
+elif key in instances:
+obj = instances[key]
+if hasattr(obj, attribute_name):
+if attribute_name not in ["id", "created_at", "updated_at"]:
+if not attribute_value_str:
+print("** value missing **")
+else:
+try:
+attribute_value = eval(attribute_value_str)
+setattr(obj, attribute_name, attribute_value)
+storage.save()
+except Exception:
+print("** value missing **")
+else:
+print("** cannot update id, created_at, or updated_at **")
+else:
+print("** attribute name missing **")
+else:
+print("** no instance found **")
 else:
 print("** class doesn't exist **")
-else:
-print(f"*** Unknown syntax: {line}")
