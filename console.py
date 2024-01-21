@@ -87,10 +87,17 @@ class HBNBCommand(cmd.Cmd):
             elif len(attribute_name_value) == 1:
                 print("** attribute name missing **")
                 return
-            
+            dict_obj = {}
             instance_id = attribute_name_value[0].strip("\"'")
-            attribute_name = attribute_name_value[1].strip("\"'")
-            attribute_value_str = attribute_name_value[2].strip("\"'")
+            if '{' in attribute_name_value[1]:
+                dict_str = attribute_name_value[1] + ", " + attribute_name_value[2]
+                try:
+                    dict_obj = ast.literal_eval(dict_str)
+                except Exception:
+                    print("** value missing **")
+            else:
+                attribute_name = attribute_name_value[1].strip("\"'")
+                attribute_value_str = attribute_name_value[2].strip("\"'")
 
             if class_name in self.classes_dict:
                 key = "{}.{}".format(class_name, instance_id)
@@ -99,18 +106,19 @@ class HBNBCommand(cmd.Cmd):
                     print("** instance id missing **")
                 elif key in instances:
                     obj = instances[key]
-                    if hasattr(obj, attribute_name):
-                        if attribute_name not in ["id", "created_at", "updated_at"]:
-                            if not attribute_value_str:
+                    if not dict_obj:
+                        if hasattr(obj, attribute_name):
+                            try:
+                                setattr(obj, attribute_name, attribute_value_str)
+                                storage.save()
+                            except Exception:
                                 print("** value missing **")
-                            else:
-                                try:
-                                    setattr(obj, attribute_name, attribute_value_str)
-                                    storage.save()
-                                except Exception:
-                                    print("** value missing **")
+                        else:
+                            setattr(obj, attribute_name, attribute_value_str)
+                            storage.save()
                     else:
-                        setattr(obj, attribute_name, attribute_value_str)
+                        for k, value in dict_obj.items():
+                            setattr(obj, k, value)
                         storage.save()
                 else:
                     print("** no instance found **")
