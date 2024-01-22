@@ -31,7 +31,7 @@ section.filters button:hover {
 	border-right: solid 1px #dddddd;
 	margin-left: 30px;
 	float: left;
-	paddding-top: -20px
+	padding-top: 20px
 }
 .amenities {
 	text-align: left;
@@ -84,7 +84,7 @@ ul {
 
 .locations:hover .popover {
 	visibility: visible;
-	margin-botton: 50px;
+	margin-bottom: 50px;
 }
 
 .amenities:hover .popover {
