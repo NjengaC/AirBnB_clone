@@ -81,7 +81,7 @@ class HBNBCommand(cmd.Cmd):
                 return
             class_name = parts[0].strip()
             attribute_name_value = parts[1].strip(")").split(", ")
-            #attribute_value_str = ""
+            attribute_value_str = ""
             if len(attribute_name_value) == 2 and '{' not in attribute_name_value[1]:
                 print("** value missing 1**")
                 return
@@ -117,15 +117,18 @@ class HBNBCommand(cmd.Cmd):
                     if not dict_obj:
                         if hasattr(obj, attribute_name):
                             try:
+                                #attribute_name = eval(attribute_name)
                                 setattr(obj, attribute_name, attribute_value_str)
                                 storage.save()
                             except Exception:
                                 print("** value missing **")
                         else:
+                           # attribute_name = eval(attribute_name)
                             setattr(obj, attribute_name, attribute_value_str)
                             storage.save()
                     else:
                         for k, value in dict_obj.items():
+                            #value = eval(value)
                             setattr(obj, k, value)
                             storage.save()
                 else:
