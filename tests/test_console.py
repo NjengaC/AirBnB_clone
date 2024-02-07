@@ -48,9 +48,7 @@ class Test_01_Basic(unittest.TestCase):
         return HBNBCommand(stdin=self.mock_stdin, stdout=self.mock_stdout)
 
     def _last_write(self, nr=None):
-    """
-        return: last `n` output lines
-    """
+        """return: last `n` output lines """
         if nr is None:
             return self.mock_stdout.write.call_args[0][0]
         return "".join(map(lambda c: c[0][0],
