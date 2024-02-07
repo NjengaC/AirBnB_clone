@@ -124,7 +124,7 @@ class HBNBCommand(cmd.Cmd):
                         for k, value in dict_obj.items():
                             value = eval(value)
                             setattr(obj, k, value)
-                            storage.save()
+                        storage.save()
                 else:
                     print("** no instance found **")
             else:
