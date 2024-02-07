@@ -81,6 +81,7 @@ class HBNBCommand(cmd.Cmd):
                 return
             class_name = parts[0].strip()
             attribute_name_value = parts[1].strip(")").split(", ")
+            attribute_value_str = ""
             if len(attribute_name_value) == 2:
                 print("** value missing 1**")
                 return
@@ -99,6 +100,11 @@ class HBNBCommand(cmd.Cmd):
                     print("** value missing **")
             else:
                 attribute_name = attribute_name_value[1].strip("\"'")
+                if len(attribute_name_value) == 3:
+                    attribute_value_str = attribute_name_value[2].strip("\"'")
+                else:
+                    print("** value missing **")
+                    return
                 attribute_value_str = attribute_name_value[2].strip("\"'")
 
             if class_name in self.classes_dict:
@@ -111,20 +117,20 @@ class HBNBCommand(cmd.Cmd):
                     if not dict_obj:
                         if hasattr(obj, attribute_name):
                             try:
-                                attribute_name = eval(attribute_name)
+                                #attribute_name = eval(attribute_name)
                                 setattr(obj, attribute_name, attribute_value_str)
                                 storage.save()
                             except Exception:
                                 print("** value missing **")
                         else:
-                            attribute_name = eval(attribute_name)
+                           # attribute_name = eval(attribute_name)
                             setattr(obj, attribute_name, attribute_value_str)
                             storage.save()
                     else:
                         for k, value in dict_obj.items():
-                            value = eval(value)
+                            #value = eval(value)
                             setattr(obj, k, value)
-                        storage.save()
+                            storage.save()
                 else:
                     print("** no instance found **")
             else:
